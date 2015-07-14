@@ -1,1 +1,18 @@
-<h1>ISIL-tietokanta</h1>
+<h1>
+	Suomalaisten kirjastojen ISIL-tunnukset
+</h1>
+<center>
+	<span class="text">
+		<form action ="/query" method="POST">
+			<select name="osakohteet">
+				<option value="Haku organisaatioista" selected>Haku organisaatioista</option>
+				<option value="Haku tunnuksella">Haku tunnuksella</option>
+			</select>
+			<input type="text" name="query">
+			<button type="submit">Hae</button>
+		</form>
+		<br>
+			Voi tehdä haun ISIL-tunnuksista kohdistamalla haun alasvetovalikosta ja syöttämällä hakusanan hakukenttään. Tyhjä haku näyttää kaikki voimassa olevat ISIL-tunnukset.
+	</span>
+
+</center>

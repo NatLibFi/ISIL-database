@@ -10,9 +10,12 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "express": "~4.13.1",
-    "express-handlebars": "~2.0.1"
+    "express-handlebars": "~2.0.1",
+    "sqlite3": "~3.0.9",
+    "body-parser": "~1.13.2"
   },
   "devDependencies": {
-    "mocha": "~2.2.5"
+    "mocha": "~2.2.5",
+    "chai": "~3.0.0"
   }
 }
