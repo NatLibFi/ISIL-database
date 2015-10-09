@@ -1,11 +1,10 @@
 /* jshint node:true */
 'use strict';
 
-var fortune = require('./lib/fortune.js');
-
 var express = require('express');
-
 var bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient;
+var mongoUrl = 'mongodb://localhost:27017/isil';
 
 var app = express();
 
@@ -13,7 +12,7 @@ var handlebars = require('express-handlebars').create({
   defaultLayout:'main',
   helpers: {
     section: function(name, options) {
-      if(!this._sections) this._sections = {};
+      if (!this._sections) this._sections = {};
       this._sections[name] = options.fn(this);
       return null;
     }
@@ -35,18 +34,25 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.get('/newsletter', function(req, res){
-// we will learn about CSRF later...for now, we just
-// provide a dummy value
-  res.render('newsletter', { csrf: 'CSRF token goes here' });
-});
-
-app.post('/process', function(req, res){
+app.post('/process', function(req, res) {
   console.log('Form (from querystring): ' + req.query.form);
-  console.log('CSRF token (from hidden form field): ' + req.body._csrf);
-  console.log('Name (from visible form field): ' + req.body.name);
-  console.log('Email (from visible form field): ' + req.body.email);
-  res.redirect(303, '/thank-you');
+  console.log('Select (from visible form field): ' + req.body.select);
+  console.log('Query (from visible form field): ' + req.body.query);
+  var selection = req.body.select;
+  var query = req.body.query;
+
+  MongoClient.connect('mongodb://localhost:27017/isil', function(err, db) {
+    if (err) throw err;
+    var query = { 'name': new RegExp(req.body.query, 'i')};
+    console.log(query);
+    db.collection('data').find(query).toArray(function(err, doc) {
+      console.log(doc);
+      db.close();
+      res.render('results', { results: doc });
+    });
+  });
+
+  //res.redirect(303, '/results');
 });
 
 // Root
@@ -55,10 +61,16 @@ app.get('/', function(req, res) {
   res.render('home');
 });
 
+// View results
+
+app.get('/results', function(req, res) {
+  res.render('results');
+});
+
 // Admin page
 
 app.get('/admin', function(req, res) {
-  res.render('admin', { fortune: fortune.getFortune() });
+  res.render('admin');
 });
 
 // 404

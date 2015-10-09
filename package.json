@@ -9,10 +9,12 @@
   "author": "Tuomo Virolainen",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "body-parser": "~1.13.2",
     "express": "~4.13.1",
     "express-handlebars": "~2.0.1",
-    "sqlite3": "~3.0.9",
-    "body-parser": "~1.13.2"
+    "mongodb": "^2.0.44",
+    "mongoskin": "^2.0.0",
+    "sqlite3": "^3.0.10"
   },
   "devDependencies": {
     "mocha": "~2.2.5",
