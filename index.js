@@ -38,12 +38,12 @@ app.post('/process', function(req, res) {
   console.log('Form (from querystring): ' + req.query.form);
   console.log('Select (from visible form field): ' + req.body.select);
   console.log('Query (from visible form field): ' + req.body.query);
-  var selection = req.body.select;
-  var query = req.body.query;
-
-  MongoClient.connect('mongodb://localhost:27017/isil', function(err, db) {
+  MongoClient.connect(mongoUrl, function(err, db) {
     if (err) throw err;
     var query = { 'name': new RegExp(req.body.query, 'i')};
+    if (req.body.query === '') {
+      query = {};
+    }
     console.log(query);
     db.collection('data').find(query).toArray(function(err, doc) {
       console.log(doc);
@@ -51,7 +51,6 @@ app.post('/process', function(req, res) {
       res.render('results', { results: doc });
     });
   });
-
   //res.redirect(303, '/results');
 });
 
@@ -59,12 +58,6 @@ app.post('/process', function(req, res) {
 
 app.get('/', function(req, res) {
   res.render('home');
-});
-
-// View results
-
-app.get('/results', function(req, res) {
-  res.render('results');
 });
 
 // Admin page
