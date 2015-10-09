@@ -1,9 +1,9 @@
-ISIL-tietokanta
-
-Kuvaus
+ISIL-TIETOKANTA
+=========
 
 Yksinkertainen tietokanta ISIL-tunnusten tallentamiseen, hakuun ja näyttämiseen.
 
-Tekniikat
+Toteutus
+---------
 
 Node.js, Express.js, MongoDB, Handlebars.js, Bootstrap
