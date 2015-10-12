@@ -24,15 +24,11 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tietoja <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Mitä ovat ISIL-tunnukset?</a></li>
                 <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="#">Ylläpito</a></li>
               </ul>
             </li>
           </ul>
@@ -48,8 +44,32 @@
 <body>
 <br>
 	<div class="center">
-{{{body}}}
-	</div>
+  <center>
+  <h3>Suomalaisten kirjastojen ISIL-tunnukset</h3>
+  <span class="text">
+    <form action ="/process?form=query" method="POST">
+      <input type="hidden" name="_csrf" value="{{csrf}}">
+      <select name="select">
+        <option value="Haku organisaatioista" selected>Haku organisaatioista</option>
+        <option value="Haku paikkakunnalla">Haku paikkakunnalla</option>
+        <option value="Haku tunnuksella">Haku tunnuksella</option>
+      </select>
+      <input type="text" name="query">
+      <button type="submit">Hae</button>
+    </form>
+    <br />
+    <p>
+      Voit tehdä haun ISIL-tunnuksista kohdistamalla haun alasvetovalikosta ja syöttämällä hakusanan hakukenttään.<br />
+      Katkaisumerkkiä ei tarvita. Tyhjä haku näyttää kaikki voimassa olevat ISIL-tunnukset.</p>
+  </span>
+  </div>
+
+  <br /><br />
+
+  {{{body}}}
+
+  <br /><br />
+  </center>
 	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 {{{_sections.jquery}}}
 </body>

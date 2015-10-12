@@ -1,4 +1,4 @@
-/* jshint node:true */
+/* jshint node: true */
 'use strict';
 
 var express = require('express');
@@ -11,7 +11,7 @@ var app = express();
 var handlebars = require('express-handlebars').create({
   defaultLayout:'main',
   helpers: {
-    section: function(name, options) {
+    section: function (name, options) {
       if (!this._sections) this._sections = {};
       this._sections[name] = options.fn(this);
       return null;
@@ -34,53 +34,63 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.post('/process', function(req, res) {
+// Process the query
+
+app.post('/process', function (req, res) {
   console.log('Form (from querystring): ' + req.query.form);
   console.log('Select (from visible form field): ' + req.body.select);
   console.log('Query (from visible form field): ' + req.body.query);
-  MongoClient.connect(mongoUrl, function(err, db) {
+  MongoClient.connect(mongoUrl, function (err, db) {
     if (err) throw err;
-    var query = { 'name': new RegExp(req.body.query, 'i')};
-    if (req.body.query === '') {
-      query = {};
+    var query = {};
+    if (req.body.select === 'Haku organisaatioista') {
+      query = { 'name': new RegExp(req.body.query, 'i')};
+    } else if (req.body.select === 'Haku tunnuksella') {
+      query = { 'isil': new RegExp(req.body.query, 'i')};
+    } else if (req.body.select === 'Haku paikkakunnalla') {
+      query = { 'cities': new RegExp(req.body.query, 'i')};
     }
-    console.log(query);
-    db.collection('data').find(query).toArray(function(err, doc) {
+    db.collection('data').find(query).toArray(function (err, doc) {
       console.log(doc);
+
+      // Parse the cities-array to a string
+
+      doc.forEach(function (d) {
+        d.cities = d.cities.join(', ');
+      });
       db.close();
       res.render('results', { results: doc });
     });
   });
-  //res.redirect(303, '/results');
 });
 
 // Root
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.render('home');
 });
 
 // Admin page
 
-app.get('/admin', function(req, res) {
+app.get('/admin', function (req, res) {
   res.render('admin');
 });
 
 // 404
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.status(404);
   res.render('404');
 });
 
 // 500 error handler (middleware)
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500);
   res.render('500');
 });
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log( 'Express started on http://localhost:' +
     app.get('port') + '; press Ctrl-C to terminate.' );
 });
