@@ -3,6 +3,7 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var _ = require('underscore');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/isil';
 
@@ -58,8 +59,14 @@ app.post('/process', function (req, res) {
       doc.forEach(function (d) {
         d.cities = d.cities.join(', ');
       });
+
       db.close();
-      res.render('results', { results: doc });
+
+      if (doc.length === 0) {
+        res.render('empty');
+      } else {
+        res.render('results', { results: doc });
+      }
     });
   });
 });
@@ -74,6 +81,22 @@ app.get('/', function (req, res) {
 
 app.get('/admin', function (req, res) {
   res.render('admin');
+});
+
+// Get a JSON dump from the DB
+
+app.get('/dump', function (req, res) {
+  MongoClient.connect(mongoUrl, function (err, db) {
+    if (err) throw err;
+    var query = {};
+    db.collection('data').find(query).toArray(function (err, doc) {
+      console.log(doc);
+      db.close();
+      // Remove internal MongoDB ID's from JSON prior to sending it to user
+      doc = _.map(doc, function (library) { delete library._id; return library; });
+      res.json(doc);
+    });
+  });
 });
 
 // 404

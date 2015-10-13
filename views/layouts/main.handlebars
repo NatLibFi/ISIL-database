@@ -1,7 +1,21 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <style>
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 2px;
+      border: 1px solid black;
+      width: 50%;
+      background-color: #F2FBEF;
+      padding-top: 10px;
+      padding-left: 25px;
+      padding-bottom: 25px;
+      padding-right: 25px;
+      border-radius: 5px;
+    }
+  </style>
 
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <!-- Latest compiled and minified CSS -->
@@ -14,63 +28,70 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-	{{{_sections.head }}}
-
-<title>ISIL-tietokanta</title>
+  <title>ISIL-tietokanta</title>
 </head>
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tietoja <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Mitä ovat ISIL-tunnukset?</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Ylläpito</a></li>
-              </ul>
-            </li>
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tietoja <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/">Mitä ovat ISIL-tunnukset?</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/">Ylläpito</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
 <center>
 	<header>
 		<img src="/img/logo.gif" alt="Kansalliskirjaston logo">
 	</header>
 </center>
 <body>
-<br>
-	<div class="center">
-  <center>
-  <h3>Suomalaisten kirjastojen ISIL-tunnukset</h3>
-  <span class="text">
-    <form action ="/process?form=query" method="POST">
-      <input type="hidden" name="_csrf" value="{{csrf}}">
-      <select name="select">
-        <option value="Haku organisaatioista" selected>Haku organisaatioista</option>
-        <option value="Haku paikkakunnalla">Haku paikkakunnalla</option>
-        <option value="Haku tunnuksella">Haku tunnuksella</option>
-      </select>
-      <input type="text" name="query">
-      <button type="submit">Hae</button>
-    </form>
-    <br />
-    <p>
-      Voit tehdä haun ISIL-tunnuksista kohdistamalla haun alasvetovalikosta ja syöttämällä hakusanan hakukenttään.<br />
-      Katkaisumerkkiä ei tarvita. Tyhjä haku näyttää kaikki voimassa olevat ISIL-tunnukset.</p>
-  </span>
-  </div>
+  <br>
+  <div class="center">
+    <center>
+      <h3>Suomalaisten kirjastojen ISIL-tunnukset</h3><br />
+      <div class="col-md-12">
+        <div class="row">
+         <form class="form-inline" action ="/process?form=query" method="POST">
+          <div class="form-group">
+            <select name="select" class="form-control">
+              <option value="Haku organisaatioista" selected>Haku organisaatioista</option>
+              <option value="Haku paikkakunnalla">Haku paikkakunnalla</option>
+              <option value="Haku tunnuksella">Haku tunnuksella</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="query" placeholder="Haku">
+          </div>
+          <button type="submit" class="btn btn-default">Hae</button>
+        </form>
+      </div>
+    </div>
 
-  <br /><br />
+    <br /><br /><br />
 
-  {{{body}}}
+    <span class="text">
+      <p>
+        Voit tehdä haun ISIL-tunnuksista kohdistamalla haun alasvetovalikosta ja syöttämällä hakusanan hakukenttään.<br />
+        Hakusana katkaistaan automaattisesti. Tyhjä haku näyttää kaikki ISIL-tunnukset.</p>
+      </span>
+    </div>
 
-  <br /><br />
+    <br /><br />
+
+    {{{body}}}
+
+    <br /><br />
   </center>
-	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-{{{_sections.jquery}}}
+  <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+  {{{_sections.jquery}}}
 </body>
 </html>
