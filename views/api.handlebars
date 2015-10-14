@@ -1,0 +1,51 @@
+<div class="greenarea">
+  <h3 class="centerWithinDiv">Rajapinta</h3>
+  <br />
+  <span class="text">
+
+    Voit tehdä ISIL-tietokannasta myös koneellisia kyselyitä hakurajapinnan kautta osoitteesta <a href="/api/query?">/api/query?</a>. Rajapinta palauttaa JSON-muotoista dataa. Parametriton haku palauttaa koko tietokannan sisällön. Käytössä ovat seuraavat hakuparametrit:
+    </span>
+
+    <br /><br />
+
+  <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">Organisaation nimi</h4>
+      <p class="list-group-item-text">name</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">Paikkakunta tai -kunnat</h4>
+      <p class="list-group-item-text">cities</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">ISIL-tunnus</h4>
+      <p class="list-group-item-text">isil</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">Linda-tunnus (jos on)</h4>
+      <p class="list-group-item-text">linda</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">Organisaation mahdolliset aikaisemmat nimet</h4>
+      <p class="list-group-item-text">former</p>
+    </div>
+  </div>
+
+    <span class="text">
+      Esimerkkihaku <code>http://localhost:3000/api/query?cities=pukkila</code> palauttaisi alla olevan hakutuloksen:
+    </span>
+
+    <br /><br />
+    
+  <pre>
+[
+  {
+    "name":"Pukkilan kunnankirjasto",
+    "isil":"FI-Pukki",
+    "linda":"Pukki",
+    "cities":["Pukkila"],
+    "former":""
+  }, ... 
+]</pre>
+
+</div>

@@ -89,10 +89,15 @@ app.get('/admin', function (req, res) {
 
 // Get a JSON dump from the DB
 
-app.get('/api', function (req, res) {
+app.get('/api/query?', function (req, res) {
   MongoClient.connect(mongoUrl, function (err, db) {
     if (err) throw err;
-    var query = {};
+    var query = req.query;
+    _.each(query, function(value, key) {
+      query[key] = new RegExp(value, 'i');
+      console.log(value);
+    });
+    console.log(query);
     db.collection('data').find(query).toArray(function (err, doc) {
       console.log(doc);
       db.close();
@@ -104,19 +109,19 @@ app.get('/api', function (req, res) {
   });
 });
 
-app.get('/apiguide', function (req, res) {
-  res.render('apiguide');
+app.get('/api', function (req, res) {
+  res.render('api');
 });
 
 // 404
 
-app.use(function (req, res, next) {
+app.use(function (req, res) {
   res.status(404);
   res.render('404');
 });
 
 // 500 error handler (middleware)
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   console.error(err.stack);
   res.status(500);
   res.render('500');
