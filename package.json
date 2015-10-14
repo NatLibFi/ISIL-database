@@ -1,13 +1,14 @@
 {
-  "name": "ISIL-tietokanta",
-  "version": "0.0.0",
-  "description": "",
+  "name": "ISIL-database",
+  "version": "0.1.0",
+  "description": "A simple application for browsing and administering ISIL-codes of Finnish libraries",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "author": "Tuomo Virolainen",
-  "license": "BSD-2-Clause",
+  "author": "Tuomo Virolainen <tuomo.virolainen@helsinki.fi>",
+  "license": "GNU GPLv3",
   "dependencies": {
     "body-parser": "~1.13.2",
     "express": "~4.13.1",

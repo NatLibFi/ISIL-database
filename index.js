@@ -104,6 +104,10 @@ app.get('/api', function (req, res) {
   });
 });
 
+app.get('/apiguide', function (req, res) {
+  res.render('apiguide');
+});
+
 // 404
 
 app.use(function (req, res, next) {
