@@ -13,8 +13,7 @@
     "express": "~4.13.1",
     "express-handlebars": "~2.0.1",
     "mongodb": "^2.0.44",
-    "mongoskin": "^2.0.0",
-    "sqlite3": "^3.0.10"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "mocha": "~2.2.5",

@@ -47,7 +47,11 @@ app.post('/process', function (req, res) {
     if (req.body.select === 'Haku organisaatioista') {
       query = { 'name': new RegExp(req.body.query, 'i')};
     } else if (req.body.select === 'Haku tunnuksella') {
-      query = { 'isil': new RegExp(req.body.query, 'i')};
+      var queryRegex = new RegExp(req.body.query, 'i');
+      query = { $or: [
+        {'isil': queryRegex},
+        {'linda': queryRegex}
+        ]};
     } else if (req.body.select === 'Haku paikkakunnalla') {
       query = { 'cities': new RegExp(req.body.query, 'i')};
     }
@@ -85,7 +89,7 @@ app.get('/admin', function (req, res) {
 
 // Get a JSON dump from the DB
 
-app.get('/dump', function (req, res) {
+app.get('/api', function (req, res) {
   MongoClient.connect(mongoUrl, function (err, db) {
     if (err) throw err;
     var query = {};
@@ -94,6 +98,7 @@ app.get('/dump', function (req, res) {
       db.close();
       // Remove internal MongoDB ID's from JSON prior to sending it to user
       doc = _.map(doc, function (library) { delete library._id; return library; });
+      res.status(200);
       res.json(doc);
     });
   });
