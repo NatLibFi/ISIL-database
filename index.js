@@ -87,7 +87,7 @@ app.get('/admin', function (req, res) {
   res.render('admin');
 });
 
-// Get a JSON dump from the DB
+// REST api
 
 app.get('/api/query?', function (req, res) {
   MongoClient.connect(mongoUrl, function (err, db) {
@@ -95,9 +95,7 @@ app.get('/api/query?', function (req, res) {
     var query = req.query;
     _.each(query, function(value, key) {
       query[key] = new RegExp(value, 'i');
-      console.log(value);
     });
-    console.log(query);
     db.collection('data').find(query).toArray(function (err, doc) {
       console.log(doc);
       db.close();
