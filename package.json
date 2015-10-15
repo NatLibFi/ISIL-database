@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "author": "Tuomo Virolainen <tuomo.virolainen@helsinki.fi>",
-  "license": "GNU GPLv3",
+  "license": "GNU AGPL3",
   "dependencies": {
     "body-parser": "~1.13.2",
     "express": "~4.13.1",
