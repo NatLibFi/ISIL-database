@@ -101,8 +101,9 @@ app.get('/api/query?', function (req, res) {
       db.close();
       // Remove internal MongoDB ID's from JSON prior to sending it to user
       doc = _.map(doc, function (library) { delete library._id; return library; });
+      var result = {'data' : doc}
       res.status(200);
-      res.json(doc);
+      res.json(result);
     });
   });
 });
