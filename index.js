@@ -7,6 +7,7 @@ var _ = require('underscore');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/isil';
 
+
 var app = express();
 
 var handlebars = require('express-handlebars').create({
@@ -25,7 +26,7 @@ app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(express.static(__dirname + '/public'));
+app.use('/isil', express.static(__dirname + '/public'));
 
 // Middleware for handling the queries submitted using the POST method
 
@@ -101,7 +102,7 @@ app.get('/isil/api/query?', function (req, res) {
       db.close();
       // Remove internal MongoDB ID's from JSON prior to sending it to user
       doc = _.map(doc, function (library) { delete library._id; return library; });
-      var result = {'data' : doc}
+      var result = {'data' : doc};
       res.status(200);
       res.json(result);
     });
@@ -113,6 +114,11 @@ app.get('/isil/api', function (req, res) {
 });
 
 // 404
+
+app.get('*', function (req, res) {
+  res.status(302);
+  res.redirect('/isil');
+});
 
 app.use(function (req, res) {
   res.status(404);
