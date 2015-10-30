@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 
 // Process the query
 
-app.post('/process', function (req, res) {
+app.post('/isil/process', function (req, res) {
   console.log('Form (from querystring): ' + req.query.form);
   console.log('Select (from visible form field): ' + req.body.select);
   console.log('Query (from visible form field): ' + req.body.query);
@@ -77,19 +77,19 @@ app.post('/process', function (req, res) {
 
 // Root
 
-app.get('/', function (req, res) {
+app.get('/isil/', function (req, res) {
   res.render('home');
 });
 
 // Admin page
 
-app.get('/admin', function (req, res) {
+app.get('/isil/admin/', function (req, res) {
   res.render('admin');
 });
 
 // REST api
 
-app.get('/api/query?', function (req, res) {
+app.get('/isil/api/query?', function (req, res) {
   MongoClient.connect(mongoUrl, function (err, db) {
     if (err) throw err;
     var query = req.query;
@@ -108,7 +108,7 @@ app.get('/api/query?', function (req, res) {
   });
 });
 
-app.get('/api', function (req, res) {
+app.get('/isil/api', function (req, res) {
   res.render('api');
 });
 
