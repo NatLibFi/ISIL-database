@@ -113,12 +113,14 @@ app.get('/isil/api', function (req, res) {
   res.render('api');
 });
 
-// 404
+// Fallback route
 
 app.get('*', function (req, res) {
   res.status(302);
   res.redirect('/isil');
 });
+
+// 404
 
 app.use(function (req, res) {
   res.status(404);
