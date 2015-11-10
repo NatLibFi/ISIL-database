@@ -7,7 +7,6 @@ var _ = require('underscore');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/isil';
 
-
 var app = express();
 
 var handlebars = require('express-handlebars').create({
@@ -26,7 +25,7 @@ app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
 
-app.use('/isil', express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // Middleware for handling the queries submitted using the POST method
 
@@ -38,7 +37,7 @@ app.use(bodyParser.json());
 
 // Process the query
 
-app.post('/isil/process', function (req, res) {
+app.post('/process', function (req, res) {
   console.log('Form (from querystring): ' + req.query.form);
   console.log('Select (from visible form field): ' + req.body.select);
   console.log('Query (from visible form field): ' + req.body.query);
@@ -78,19 +77,19 @@ app.post('/isil/process', function (req, res) {
 
 // Root
 
-app.get('/isil/', function (req, res) {
+app.get('/', function (req, res) {
   res.render('home');
 });
 
 // Admin page
 
-app.get('/isil/admin/', function (req, res) {
+app.get('/admin/', function (req, res) {
   res.render('admin');
 });
 
 // REST api
 
-app.get('/isil/api/query?', function (req, res) {
+app.get('/api/query?', function (req, res) {
   MongoClient.connect(mongoUrl, function (err, db) {
     if (err) throw err;
     var query = req.query;
@@ -109,7 +108,7 @@ app.get('/isil/api/query?', function (req, res) {
   });
 });
 
-app.get('/isil/api', function (req, res) {
+app.get('/api', function (req, res) {
   res.render('api');
 });
 
@@ -117,7 +116,7 @@ app.get('/isil/api', function (req, res) {
 
 app.get('*', function (req, res) {
   res.status(302);
-  res.redirect('/isil');
+  res.redirect('/');
 });
 
 // 404
