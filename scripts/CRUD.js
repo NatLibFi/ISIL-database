@@ -1,33 +1,39 @@
 /* jshint node: true */
+
+/* A simple command-line program for doing CRUD (create, read, update, delete) operations on the database. */
+
 'use strict';
 
-var fs = require('fs');
-var _ = require('underscore');
-var MongoClient = require('mongodb').MongoClient;
-var mongoUrl = 'mongodb://localhost:27017/isil';
+var readline = require('readline');
+var saveToDB = require('./lib/saveToDB.js').save;
+var inputIsil = require('./lib/inputIsil.js').enter;
 
-process.stdin.setEncoding('utf8');
-
-printMenu();
-
-process.stdin.on('readable', function () {
-  var input = process.stdin.read();
-  if (Number(input) === 1) {
-    console.log('Syöttö');
-  } else if (Number(input) === 2) {
-    console.log('Näyttö');
-  } else if (Number(input) === 3) {
-    console.log('Muokkaus');
-  } else if (Number(input) === 4) {
-    console.log('C ya');
-    process.exit();
-  }
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
 
-process.stdin.on('end', function () {
-  process.stdout.write('Quitting.');
-});
+mainMenu();
 
-function printMenu() {
-  console.log('Valitse toiminto:\n1) Syötä uusi ISIL\n2) Näytä ISIL\n3) Muokkaa ISIL-tunnusta\n4) Lopeta');
-} 
+function mainMenu() {
+  console.log('1) Input new ISIL\n2) Show ISIL\n3) Update an ISIL-code\n4) Delete an ISIL\n5) Quit');
+  rl.question('Enter a choice: ', function (choice) {
+    choice = Number(choice);
+    if (choice === 1) { saveISIL(); }
+    //else if (choice === 2) { readIsil(); }
+    else if (choice === 5) { console.log('See ya.\n'); process.exit(); }
+  });
+}
+
+function saveISIL() {
+  inputIsil(rl, function (library) {
+    console.log('The record you entered:\n' + JSON.stringify(library));
+    rl.question('Save to database (y/n)? ', function (input) {
+      if (input.toLowerCase().trim() === 'y') {
+        saveToDB(library, mainMenu);
+      } else {
+        mainMenu();
+      }
+    });
+  });
+}
