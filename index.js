@@ -1,5 +1,8 @@
 /* jshint node: true */
+
 'use strict';
+
+process.chdir(__dirname);
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -23,7 +26,7 @@ var handlebars = require('express-handlebars').create({
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3000);
 
 app.use(express.static(__dirname + '/public'));
 
