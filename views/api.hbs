@@ -1,0 +1,55 @@
+<div class="greenarea">
+  <h3 class="centerWithinDiv">Rajapinta</h3>
+  <br />
+  <span class="text">
+
+    Voit tehdä ISIL-tietokannasta myös koneellisia kyselyitä REST-hakurajapinnan kautta osoitteesta <a href="/api/query?">/api/query?</a>. Rajapinta palauttaa JSON-muotoista dataa. Parametriton haku palauttaa koko tietokannan sisällön. Käytössä ovat seuraavat hakuparametrit:
+    </span>
+
+    <br /><br />
+
+  <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">name</h4>
+      <p class="list-group-item-text">Organisaation nimi</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">cities</h4>
+      <p class="list-group-item-text">Paikkakunta tai -kunnat</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">isil</h4>
+      <p class="list-group-item-text">ISIL-tunnus</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">linda</h4>
+      <p class="list-group-item-text">Linda-yhteisluettelotunnus (jos on)</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">former</h4>
+      <p class="list-group-item-text">Organisaation mahdolliset aikaisemmat nimet</p>
+    </div>
+  </div>
+
+    <span class="text">
+      Esimerkkihaku <code>http://isil.kansalliskirjasto.fi/api/query?cities=pukkila</code> palauttaisi alla olevan hakutuloksen:
+    </span>
+
+    <br /><br />
+    
+  <pre>
+{
+  "data" : 
+        [
+          {
+            "name":"Pukkilan kunnankirjasto",
+            "isil":"FI-Pukki",
+            "linda":"Pukki",
+            "cities":["Pukkila"],
+            "former":""
+          }
+        ]
+}
+</pre>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="greenarea">
+  <h3 class="centerWithinDiv">API</h3>
+  <br />
+  <span class="text">
+
+    It is also possible to query the ISIL-database via a REST API. The responses are served in JSON format. A query without parameters returns a full list of registered ISIL identifiers. The API supports the following parameters:
+    </span>
+
+    <br /><br />
+
+  <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">name</h4>
+      <p class="list-group-item-text">The name of the organization</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">cities</h4>
+      <p class="list-group-item-text">The city of cities where the organization is active</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">isil</h4>
+      <p class="list-group-item-text">ISIL identifier</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">linda</h4>
+      <p class="list-group-item-text">The former common catalogue identifier, if such exists</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">former</h4>
+      <p class="list-group-item-text">The possible former names of the organization</p>
+    </div>
+  </div>
+
+    <span class="text">
+      An example query <code>http://isil.kansalliskirjasto.fi/api/query?cities=pukkila</code> would return the following response:
+    </span>
+
+    <br /><br />
+    
+  <pre>
+{
+  "data" : 
+        [
+          {
+            "name":"Pukkilan kunnankirjasto",
+            "isil":"FI-Pukki",
+            "linda":"Pukki",
+            "cities":["Pukkila"],
+            "former":""
+          }
+        ]
+}
+</pre>
+
+</div>
