@@ -1,9 +1,12 @@
-ISIL-TIETOKANTA
+ISIL REGISTRY
 =========
 
-Yksinkertainen tietokanta ISIL-tunnusten tallentamiseen, hakuun ja näyttämiseen.
+Added: ES6 syntax, logging, English version, updated descriptions.
 
-Toteutus
----------
+TODO: Admin page, documentation.
 
-Node.js, Express.js, MongoDB, Handlebars.js, Bootstrap
+## License and copyright
+
+Copyright (c) 2015-2016 **University Of Helsinki (The National Library Of Finland)**
+
+This project's source code is licensed under the terms of **GNU Affero General Public License Version 3**.
