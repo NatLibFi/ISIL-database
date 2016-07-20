@@ -8,20 +8,11 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const _ = require('underscore');
-const winston = require('winston');
+const dbQuery = require('./src/server/db-query');
+const apiQuery = require('./src/server/api-query');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
-const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = 'mongodb://localhost:27017/isil';
-
-const logger = new (winston.Logger) ({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({ filename: 'logfile.log' })
-  ]
-});
 
 const app = express();
 
@@ -78,7 +69,6 @@ function performQuery(req, callback) {
           d.cities = d.cities.join(', ');
         });
         db.close();
-        logger.log('info', 'Normal query (%s: %s)', req.body.select, req.body.query);
         callback(doc);
     });
   });
@@ -87,7 +77,7 @@ function performQuery(req, callback) {
 // Process the query
 
 app.post('/process', (req, res) => {
-  performQuery(req, function(doc) {
+  dbQuery(req, doc => {
       if (doc.length === 0) {
         res.render('empty', { body: 'Ei hakutuloksia' });
       } else {
@@ -97,7 +87,7 @@ app.post('/process', (req, res) => {
 });
 
 app.post('/en/process', (req, res) => {
-  performQuery(req, function(doc) {
+  dbQuery(req, doc => {
       if (doc.length === 0) {
         res.render('empty', { layout: 'en_main', body: 'Nothing was found' });
       } else {
@@ -122,29 +112,14 @@ app.get('/en/', (req, res) => {
 // Admin page
 
 app.get('/admin/', (req, res) => {
-  res.render('admin', { layout: 'admin' });
+  res.render('home');
+  //res.render('admin', { layout: 'admin' });
 });
 
 // REST api
 
 app.get('/api/query?', (req, res) => {
-  logger.log('info', 'API query (%s)', JSON.stringify(req.query));
-  MongoClient.connect(mongoUrl, (err, db) => {
-    if (err) throw err;
-    let query = req.query;
-    _.each(query, (value, key) => {
-      query[key] = new RegExp(value, 'i');
-    });
-    db.collection('data').find(query).toArray( (err, doc) => {
-      console.log(doc);
-      db.close();
-      // Remove internal MongoDB ID's from JSON prior to sending it to user
-      doc = _.map(doc, library => { delete library._id; return library; });
-      const result = {'data' : doc};
-      res.status(200);
-      res.json(result);
-    });
-  });
+  apiQuery(req, res);
 });
 
 // Api page
