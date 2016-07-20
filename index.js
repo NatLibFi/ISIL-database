@@ -45,35 +45,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-function performQuery(req, callback) {
-  MongoClient.connect(mongoUrl, (err, db) => {
-      if (err) throw err;
-      let query = {};
-      if (req.body.select === 'Haku organisaatioista') {
-        query = { 'name': new RegExp(req.body.query, 'i')};
-      } else if (req.body.select === 'Haku tunnuksella') {
-        const queryRegex = new RegExp(req.body.query, 'i');
-        query = { $or: [
-          {'isil': queryRegex},
-          {'linda': queryRegex}
-          ]};
-      } else if (req.body.select === 'Haku paikkakunnalla') {
-        query = { 'cities': new RegExp(req.body.query, 'i')};
-      }
-      db.collection('data').find(query).toArray( (err, doc) => {
-        console.log(doc);
-
-        // Parse the cities-array to a string
-
-        doc.forEach(d => {
-          d.cities = d.cities.join(', ');
-        });
-        db.close();
-        callback(doc);
-    });
-  });
-}
-
 // Process the query
 
 app.post('/process', (req, res) => {
