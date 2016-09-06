@@ -83,8 +83,8 @@ app.get('/en/', (req, res) => {
 // Admin page
 
 app.get('/admin/', (req, res) => {
-  res.render('home');
-  //res.render('admin', { layout: 'admin' });
+  //res.render('home');
+  res.render('admin', { layout: 'admin' });
 });
 
 // REST api
