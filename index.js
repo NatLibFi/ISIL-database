@@ -13,6 +13,7 @@ const apiQuery = require('./src/server/api-query');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const favicon = require('serve-favicon');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.set('view engine', 'hbs');
 app.set('port', 3000);
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(session({ secret: 'no heippa' }));
 
