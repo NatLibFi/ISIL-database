@@ -10,7 +10,8 @@ function performQuery(req, callback) {
 
   const logEntry = { 
     "level": "info", 
-    "message": "Normal query (" + req.body.select + ", " + req.body.query + ")" };
+    "message": "Normal query (" + req.body.select + ", " + req.body.query + ")" 
+  };
 
   MongoClient.connect(mongoUrl, (err, db) => {
       if (err) { throw err; }
