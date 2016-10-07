@@ -7,11 +7,14 @@ const mongoUrl = 'mongodb://localhost:27017/isil';
 const _ = require('underscore');
 
 function apiQuery(req, res) {
+
   const logEntry = { 
     "level": "info", 
-    "message": "API query (" + JSON.stringify(req.query) + ")" };
+    "message": "API query (" + JSON.stringify(req.query) + ")" 
+  };
+
   MongoClient.connect(mongoUrl, (err, db) => {
-    if (err) throw err;
+    if (err) { throw err; }
     let query = req.query;
     _.each(query, (value, key) => {
       query[key] = new RegExp(value, 'i');
