@@ -5,7 +5,7 @@ class Application extends React.Component {
   constructor() {
     super();
     this.state = {
-      alternatives: ["Joo", "Öhö öhö", "moi", "Onks kaljaa?"],
+      alternatives: ["foo", "far"],
       liked: "initial"
     };
     this.handleClick = this.handleClick.bind(this);
