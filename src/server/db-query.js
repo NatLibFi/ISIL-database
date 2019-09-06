@@ -4,7 +4,7 @@
 
 const _ = require('underscore');
 const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = 'mongodb://localhost:27017/isil';
+const mongoUrl = process.env.MONGO_URI;
 
 function performQuery(req, callback) {
 
