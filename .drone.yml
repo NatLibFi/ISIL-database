@@ -13,7 +13,7 @@ steps:
     password:
       from_secret: docker_password
   when:
-    branch: [feature-drone]
+    branch: [feature-docker]
     event: [push]
 trigger:
   event: [push]
