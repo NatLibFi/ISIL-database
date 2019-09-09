@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <style>
     .greenarea {
@@ -104,15 +104,20 @@
              <form class="form-inline" action ="/en/process?form=query" method="POST">
 
               <div class="form-group">
-                <select name="select" class="form-control">
-                  <option value="Haku organisaatioista" selected>Search by organization</option>
-                  <option value="Haku paikkakunnalla">Search by city</option>
-                  <option value="Haku tunnuksella">Search by ISIL</option>
+                <label for="options" style="display:none;">Options</label>
+                <select name="select" class="form-control" id="options">
+                  <label for="organization">Search by organization</label>
+                  <option value="Haku organisaatioista" id="organization" selected>Search by organization</option>
+                  <label for="city">Search by city</label>
+                  <option value="Haku paikkakunnalla" id="city">Search by city</option>
+                  <label for="isil">Search by ISIL</label>
+                  <option value="Haku tunnuksella" id="isil">Search by ISIL</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" name="query" placeholder="Query">
+                <label for="query" style="display:none;">Query</label>
+                <input type="text" class="form-control" id="query" name="query" placeholder="Query">
               </div>
 
               <button type="submit" class="btn btn-default">Search</button>
