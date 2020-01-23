@@ -3,7 +3,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = 'mongodb://localhost:27017/isil';
+const mongoUrl = process.env.MONGO_URI;
 const _ = require('underscore');
 
 function apiQuery(req, res) {
