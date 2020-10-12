@@ -11,8 +11,6 @@ const _ = require('underscore');
 const dbQuery = require('./src/server/db-query');
 const apiQuery = require('./src/server/api-query');
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const favicon = require('serve-favicon');
 
 const app = express();
@@ -31,15 +29,9 @@ const hbs = exphbs.create({
 
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
-app.set('port', process.env.HTTP_PORT);
+app.set('port', 3000);
 app.use(express.static(__dirname + '/public'));
-app.use(cookieParser());
 app.use(favicon(__dirname + '/public/favicon.ico'));
-
-app.use(session({ secret: 'no heippa' }));
-
-app.enable('trust proxy', process.env.ENABLE_PROXY);
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -89,6 +81,12 @@ app.get('/en/', (req, res) => {
 app.get('/admin/', (req, res) => {
   //res.render('home');
   res.render('admin', { layout: 'admin' });
+});
+
+// Accessibility report
+
+app.get('/accessibility/', (req, res) => {
+  res.render('accessibility', { layout: 'admin' });
 });
 
 // REST api
