@@ -29,9 +29,12 @@ const hbs = exphbs.create({
 
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
-app.set('port', 3000);
+app.set('port', process.env.HTTP_PORT);
 app.use(express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.enable('trust proxy', process.env.ENABLE_PROXY);
+
 app.use(passport.initialize());
 app.use(passport.session());
 
