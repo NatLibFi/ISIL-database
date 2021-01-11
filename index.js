@@ -29,12 +29,9 @@ const hbs = exphbs.create({
 
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
-app.set('port', process.env.HTTP_PORT);
+app.set('port', 3000);
 app.use(express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
-
-app.enable('trust proxy', process.env.ENABLE_PROXY);
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -90,6 +87,10 @@ app.get('/admin/', (req, res) => {
 
 app.get('/accessibility/', (req, res) => {
   res.render('accessibility', { layout: 'admin' });
+});
+
+app.get('/en_accessibility/', (req, res) => {
+  res.render('en_accessibility', { layout: 'admin' });
 });
 
 // REST api
