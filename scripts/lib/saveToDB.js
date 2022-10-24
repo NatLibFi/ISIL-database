@@ -9,8 +9,9 @@ module.exports = (function() {
 
   function saveToDB(data, callback) {
     // database: isil, collection: data
-    MongoClient.connect(mongoUrl, function (err, db) {
+    MongoClient.connect(mongoUrl, function (err, client) {
       if (err) throw err;
+      const db = client.db('isil');
       else {
         db.collection('data').insert(data, function (err, doc) {
           if (err) throw err;

@@ -13,8 +13,9 @@ function performQuery(req, callback) {
     "message": "Normal query (" + req.body.select + ", " + req.body.query + ")" 
   };
 
-  MongoClient.connect(mongoUrl, (err, db) => {
+  MongoClient.connect(mongoUrl, (err, client) => {
       if (err) { throw err; }
+      const db = client.db('isil');
       let query = {};
       if (req.body.select === 'Haku organisaatioista') {
         query = { 'name': new RegExp(req.body.query, 'i')};
