@@ -13,17 +13,17 @@ function apiQuery(req, res) {
     "message": "API query (" + JSON.stringify(req.query) + ")" 
   };
 
-  MongoClient.connect(mongoUrl, (err, db) => {
+  MongoClient.connect(mongoUrl, (err, client) => {
     if (err) { throw err; }
     let query = req.query;
     _.each(query, (value, key) => {
       query[key] = new RegExp(value, 'i');
     });
-
+    const db = client.db('isil');
     db.collection('log').insert(logEntry, (err, doc) => {
       console.log(logEntry);
       db.collection('data').find(query).toArray( (err, doc) => {
-        db.close();
+        client.close();
         // Remove internal MongoDB ID's from JSON prior to sending it to user
         doc = _.map(doc, library => { delete library._id; return library; });
         const result = {'data' : doc};

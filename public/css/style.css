@@ -1,0 +1,37 @@
+.greenarea {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
+  border: 1px solid black;
+  width: 60%;
+  background-color: #F2FBEF;
+  padding-top: 10px;
+  padding-left: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  border-radius: 5px;
+}
+.centeredElement {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+.centeredDiv {
+  width: 50%;
+  margin: 0 auto;
+}
+.centerWithinDiv {
+  text-align: center;
+}
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+.alert-box {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+a.nav-link.inactive:hover {
+  background-color: gray !important;
+}

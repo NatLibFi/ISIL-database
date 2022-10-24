@@ -13,8 +13,9 @@ function performQuery(req, callback) {
     "message": "Normal query (" + req.body.select + ", " + req.body.query + ")" 
   };
 
-  MongoClient.connect(mongoUrl, (err, db) => {
+  MongoClient.connect(mongoUrl, (err, client) => {
       if (err) { throw err; }
+      const db = client.db('isil');
       let query = {};
       if (req.body.select === 'Haku organisaatioista') {
         query = { 'name': new RegExp(req.body.query, 'i')};
@@ -32,7 +33,7 @@ function performQuery(req, callback) {
 
         db.collection('data').find(query).toArray( (err, doc) => {
 
-          db.close();
+          client.close();
 
           // Only show entries where the 'active' property is true
           // Parse the cities-array to a string

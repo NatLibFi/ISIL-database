@@ -5,12 +5,13 @@
 process.chdir(__dirname);
 
 const express = require('express');
+//import exphbs from 'express-handlebars';
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const _ = require('underscore');
 const dbQuery = require('./src/server/db-query');
 const apiQuery = require('./src/server/api-query');
-const passport = require('passport');
+//const passport = require('passport');
 const favicon = require('serve-favicon');
 
 const app = express();
@@ -27,16 +28,14 @@ const hbs = exphbs.create({
   }
 });
 
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
+//app.engine('hbs', exphbs.engine);
 app.set('view engine', 'hbs');
 app.set('port', process.env.HTTP_PORT);
 app.use(express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.enable('trust proxy', process.env.ENABLE_PROXY);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Middleware for handling the queries submitted using the POST method
 app.use(bodyParser.urlencoded({
@@ -79,21 +78,12 @@ app.get('/en/', (req, res) => {
   res.render('en_home', { layout: 'en_main' });
 });
 
-// Admin page
-
-app.get('/admin/', (req, res) => {
-  //res.render('home');
-  res.render('admin', { layout: 'admin' });
-});
-
-// Accessibility report
-
 app.get('/accessibility/', (req, res) => {
-  res.render('accessibility', { layout: 'admin' });
+  res.render('accessibility', { layout: 'container' });
 });
 
 app.get('/en_accessibility/', (req, res) => {
-  res.render('en_accessibility', { layout: 'admin' });
+  res.render('en_accessibility', { layout: 'container_en' });
 });
 
 // REST api
