@@ -23,7 +23,7 @@ function apiQuery(req, res) {
     db.collection('log').insert(logEntry, (err, doc) => {
       console.log(logEntry);
       db.collection('data').find(query).toArray( (err, doc) => {
-        db.close();
+        client.close();
         // Remove internal MongoDB ID's from JSON prior to sending it to user
         doc = _.map(doc, library => { delete library._id; return library; });
         const result = {'data' : doc};

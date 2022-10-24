@@ -17,7 +17,7 @@ module.exports = (function() {
           if (err) throw err;
           console.log('Success.');
           console.log(JSON.stringify(doc) + '\n');
-          db.close();
+          client.close();
           callback();
         });
       }

@@ -33,7 +33,7 @@ function performQuery(req, callback) {
 
         db.collection('data').find(query).toArray( (err, doc) => {
 
-          db.close();
+          client.close();
 
           // Only show entries where the 'active' property is true
           // Parse the cities-array to a string
