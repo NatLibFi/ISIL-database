@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:20-alpine
 CMD ["/usr/local/bin/node", "index.js"]
 WORKDIR /home/node
 
@@ -11,3 +11,4 @@ RUN apk add -U --no-cache --virtual .build-deps python3 git build-base sudo \
   && rm -rf build tmp/* /var/cache/apk/*
 
 USER node
+
