@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 const _ = require('underscore');
 const dbQuery = require('./src/server/db-query');
 const apiQuery = require('./src/server/api-query');
-//const passport = require('passport');
 const favicon = require('serve-favicon');
 
 const app = express();
@@ -29,7 +28,6 @@ const hbs = exphbs.create({
 });
 
 app.engine('hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
-//app.engine('hbs', exphbs.engine);
 app.set('view engine', 'hbs');
 app.set('port', process.env.HTTP_PORT);
 app.use(express.static(__dirname + '/public'));
