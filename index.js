@@ -63,6 +63,15 @@ app.post('/en/process', (req, res) => {
   });
 });
 
+app.post('/sv/process', (req, res) => {
+  dbQuery(req, doc => {
+      if (doc.length === 0) {
+        res.render('empty', { layout: 'sv_main', body: 'Inga sökresultat' });
+      } else {
+        res.render('sv_results', { layout: 'sv_main', results: doc });
+      }
+  });
+});
 
 // Root
 
@@ -70,10 +79,12 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-// Main page in en_main
-
 app.get('/en/', (req, res) => {
   res.render('en_home', { layout: 'en_main' });
+});
+
+app.get('/sv/', (req, res) => {
+  res.render('sv_home', { layout: 'sv_main' });
 });
 
 app.get('/accessibility/', (req, res) => {
@@ -82,6 +93,10 @@ app.get('/accessibility/', (req, res) => {
 
 app.get('/en_accessibility/', (req, res) => {
   res.render('en_accessibility', { layout: 'container_en' });
+});
+
+app.get('/sv_accessibility/', (req, res) => {
+  res.render('sv_accessibility', { layout: 'container_sv' });
 });
 
 // REST api
@@ -96,10 +111,12 @@ app.get('/api/', (req, res) => {
   res.render('api');
 });
 
-// Api page in en_main
-
 app.get('/en/api/', (req, res) => {
   res.render('en_api', { layout: 'en_main' });
+});
+
+app.get('/sv/api/', (req, res) => {
+  res.render('sv_api', { layout: 'sv_main' });
 });
 
 // Fallback route

@@ -25,15 +25,15 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
           <li><a href="/">Suomeksi</a></li>
-          <li><a href="/sv/">På svenska</a></li>
-          <li class="active"><a href="/en/">In English</a></li>
+          <li class="active"><a href="/sv/">På svenska</a></li>
+          <li><a href="/en/">In English</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Information<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="/en/">What are ISIL Identifiers?</a></li>
-              <li><a href="/en/api">API</a></li>
+              <li><a href="/sv/">Vad är ISIL-identifikatorer?</a></li>
+              <li><a href="/sv/api">API</a></li>
             </ul>
           </li>
         </ul>
@@ -43,7 +43,7 @@
 
   <div class="container_fluid">
     <div class="centerWithinDiv" style="height:100px">
-      <img src="../img/logo_en.png" alt="Logo of the National Library">
+      <img src="../img/logo.png" alt="Logo of the National Library">
     </div>
   </div>
 
@@ -54,7 +54,7 @@
       <div class="centeredElement">
 
         <div class="row">
-          <h3 class="centerWithinDiv">The ISIL Standard Identifiers of Finnish Libraries</h3><br />
+          <h3 class="centerWithinDiv">Finländska biblioteks ISIL-identifikatorer</h3><br />
         </div>
       </div>
 
@@ -62,26 +62,26 @@
         <div class="centerWithinDiv">
           <div class="col-md-12">
             <div class="row">
-             <form class="form-inline" action ="/en/process?form=query" method="POST">
+             <form class="form-inline" action ="/sv/process?form=query" method="POST">
 
               <div class="form-group">
-                <label for="options" style="display:none;">Options</label>
+                <label for="options" style="display:none;">Sökalternativ</label>
                 <select name="select" class="form-control" id="options">
-                  <label for="organization">Search by organization</label>
-                  <option value="Haku organisaatioista" id="organization" selected>Search by organization</option>
-                  <label for="city">Search by city</label>
-                  <option value="Haku paikkakunnalla" id="city">Search by city</option>
-                  <label for="isil">Search by ISIL</label>
-                  <option value="Haku tunnuksella" id="isil">Search by ISIL</option>
+                  <label for="organization">Sökning bland organisationer</label>
+                  <option value="Haku organisaatioista" id="organization" selected>Sökning bland organisationer</option>
+                  <label for="city">Sökning per ort</label>
+                  <option value="Haku paikkakunnalla" id="city">Sökning per ort</option>
+                  <label for="isil">Sökning med identifikator</label>
+                  <option value="Haku tunnuksella" id="isil">Sökning med identifikator</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="query" style="display:none;">Query</label>
+                <label for="query" style="display:none;">Sök</label>
                 <input type="text" class="form-control" id="query" name="query" placeholder="Query">
               </div>
 
-              <button type="submit" class="btn btn-default">Search</button>
+              <button type="submit" class="btn btn-default">Söka</button>
 
             </form>
 
@@ -94,12 +94,13 @@
   <br /><br /><br />
 
   <div class="centerWithinDiv">
-    You can search the ISIL registry by selecting a suitable option from the drop-down menu and entering a query into the search field.
+    Du kan söka bland ISIL-identifikatorerna genom att välja ett lämpligt alternativ i rullgardinsmenyn och skriva in ett sökord i sökfältet. 
     <br />
-    The query is automatically truncated and capitalization is ignored. An empty search returns a complete list of ISIL identifiers.
+    Bibliotekens namn och orter finns endast på ett språk, svenska eller finska.
+    <br />
+    Sökordet trunkeras automatiskt, och sökfunktionen gör ingen skillnad mellan stora och små bokstäver. En sökning utan sökord visar alla ISIL-identifikatorer. 
     <br />
     <br />
-    <div class="alert alert-info alert-box" role="alert"><strong>Note:</strong> the names and locations of libraries are provided in only one language for each library, Finnish or Swedish.</div>
   </div>
 
 </div>
