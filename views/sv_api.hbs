@@ -1,0 +1,56 @@
+<div class="greenarea">
+  <h3 class="centerWithinDiv">API</h3>
+  <br />
+  <span class="text">
+
+    Du kan också göra maskinläsbara förfrågningar ur ISIL-databasen via sökgränssnittet REST på adressen <a href="/api/query?">/api/query?</a>. Gränssnittet ger data i JSON-format. En sökning utan parameter ger hela innehållet i databasen. Följande sökparametrar används:
+    </span>
+
+    <br /><br />
+
+  <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">name</h4>
+      <p class="list-group-item-text">Organisationens namn</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">cities</h4>
+      <p class="list-group-item-text">Ort eller orter</p>
+    </div>
+    <div class="list-group-item">
+      <h4 class="list-group-item-heading">isil</h4>
+      <p class="list-group-item-text">ISIL-identifikator</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">linda</h4>
+      <p class="list-group-item-text">Kod för samkatalogen Linda (om en sådan finns)</p>
+    </div>
+    <div class="list-group-item list-group-item-warning">
+      <h4 class="list-group-item-heading">former</h4>
+      <p class="list-group-item-text">Organisationens eventuella tidigare namn</p>
+    </div>
+  </div>
+
+    <span class="text">
+      Till exempel sökningen  <code>https://isil.kansalliskirjasto.fi/api/query?cities=pukkila</code> skulle ge följande sökresultat:
+    </span>
+
+    <br /><br />
+    
+  <pre>
+{
+  "data" : 
+        [
+          {
+            "name":"Pukkilan kunnankirjasto",
+            "isil":"FI-Pukki",
+            "linda":"Pukki",
+            "cities":["Pukkila"],
+            "former":"",
+            "active":true
+          }
+        ]
+}
+</pre>
+
+</div>
