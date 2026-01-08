@@ -47,10 +47,6 @@ function performQuery(req, callback) {
           callback(doc);
         });
     })
-    .catch(err => {
-      console.error(err);
-      throw err;
-    });
 }
 
 module.exports = performQuery;

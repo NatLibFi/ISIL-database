@@ -5,7 +5,6 @@
 process.chdir(__dirname);
 
 const express = require('express');
-//import exphbs from 'express-handlebars';
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const _ = require('underscore');
@@ -135,7 +134,6 @@ app.use( (req, res) => {
 
 // 500 error handler (middleware)
 app.use( (err, req, res) => {
-  console.error(err.stack);
   res.status(500);
   res.render('500');
 });
