@@ -4,3 +4,4 @@ node_modules
 *.map
 public/js/build.js
 .env
+package-lock.json
