@@ -26,7 +26,7 @@ const hbs = exphbs.create({
   }
 });
 
-app.engine('hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('hbs', exphbs.engine({defaultLayout: 'fi_main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
 app.set('port', process.env.HTTP_PORT);
 app.use(express.static(__dirname + '/public'));
@@ -42,60 +42,41 @@ app.use(bodyParser.json());
 
 // Process the query
 
-app.post('/process', (req, res) => {
+app.post('/:language/process', (req, res, next) => {
+  //https://expressjs.com/en/guide/routing.html
+  const language = req.params.language
+  const texts = {
+    'fi': 'Ei hakutuloksia',
+    'sv': 'Inga sökresultat',
+    'en': 'Nothing was found'
+  }
   dbQuery(req, doc => {
-      if (doc.length === 0) {
-        res.render('empty', { body: 'Ei hakutuloksia' });
-      } else {
-        res.render('results', { results: doc });
-      }
-  });
-});
-
-app.post('/en/process', (req, res) => {
-  dbQuery(req, doc => {
-      if (doc.length === 0) {
-        res.render('empty', { layout: 'en_main', body: 'Nothing was found' });
-      } else {
-        res.render('en_results', { layout: 'en_main', results: doc });
-      }
-  });
-});
-
-app.post('/sv/process', (req, res) => {
-  dbQuery(req, doc => {
-      if (doc.length === 0) {
-        res.render('empty', { layout: 'sv_main', body: 'Inga sökresultat' });
-      } else {
-        res.render('sv_results', { layout: 'sv_main', results: doc });
-      }
+    if (!doc) {
+      const err = new Error("Unsupported Media Type");
+      err.status = 415;
+      return next(err);
+    } else if (doc.length === 0) {
+      res.render(language + '_empty', { body: texts.language });
+    } else {
+      res.render(language + '_results', { results: doc });
+    }
   });
 });
 
 // Root
 
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('fi_home');
 });
 
-app.get('/en/', (req, res) => {
-  res.render('en_home', { layout: 'en_main' });
+app.get('/:language/', (req, res) => {
+  const language = req.params.language
+  res.render(language + '_home', { layout: language + '_main' });
 });
 
-app.get('/sv/', (req, res) => {
-  res.render('sv_home', { layout: 'sv_main' });
-});
-
-app.get('/accessibility/', (req, res) => {
-  res.render('accessibility', { layout: 'container' });
-});
-
-app.get('/en_accessibility/', (req, res) => {
-  res.render('en_accessibility', { layout: 'container_en' });
-});
-
-app.get('/sv_accessibility/', (req, res) => {
-  res.render('sv_accessibility', { layout: 'container_sv' });
+app.get('/:language/accessibility/', (req, res) => {
+  const language = req.params.language
+  res.render(language + 'accessibility', { layout: 'container_' + language });
 });
 
 // REST api
@@ -106,16 +87,8 @@ app.get('/api/query?', (req, res) => {
 
 // Api page
 
-app.get('/api/', (req, res) => {
-  res.render('api');
-});
-
-app.get('/en/api/', (req, res) => {
-  res.render('en_api', { layout: 'en_main' });
-});
-
-app.get('/sv/api/', (req, res) => {
-  res.render('sv_api', { layout: 'sv_main' });
+app.get('/:language/api/', (req, res) => {
+  res.render(language + '_api', { layout: language + '_main' });
 });
 
 // Fallback route
@@ -130,6 +103,11 @@ app.get('*', (req, res) => {
 app.use( (req, res) => {
   res.status(404);
   res.render('404');
+});
+
+app.use( (err, req, res, next) => {
+  res.status(415);
+  res.render('415');
 });
 
 // 500 error handler (middleware)
