@@ -42,8 +42,17 @@ app.use(bodyParser.json());
 
 // Process the query
 
+app.post('/process', (req, res) => {
+  dbQuery(req, doc => {
+      if (doc.length === 0) {
+        res.render('empty', { body: 'Ei hakutuloksia' });
+      } else {
+        res.render('fi_results', { results: doc });
+      }
+  });
+});
+
 app.post('/:language/process', (req, res, next) => {
-  //https://expressjs.com/en/guide/routing.html
   const language = req.params.language
   const texts = {
     'fi': 'Ei hakutuloksia',
@@ -65,18 +74,14 @@ app.post('/:language/process', (req, res, next) => {
 
 // Root
 
-app.get('/', (req, res) => {
-  res.render('fi_home');
-});
-
-app.get('/:language/', (req, res) => {
+app.get('/index/:language/', (req, res) => {
   const language = req.params.language
   res.render(language + '_home', { layout: language + '_main' });
 });
 
-app.get('/:language/accessibility/', (req, res) => {
+app.get('/accessibility/:language/', (req, res) => {
   const language = req.params.language
-  res.render(language + 'accessibility', { layout: 'container_' + language });
+  res.render(language + '_accessibility', { layout: 'container_' + language });
 });
 
 // REST api
@@ -87,20 +92,17 @@ app.get('/api/query?', (req, res) => {
 
 // Api page
 
-app.get('/:language/api/', (req, res) => {
+app.get('/api/:language/', (req, res) => {
+  const language = req.params.language
   res.render(language + '_api', { layout: language + '_main' });
 });
 
-// Fallback route
-
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.status(302);
-  res.redirect('/');
+  res.redirect('/index/fi');
 });
 
-// 404
-
-app.use( (req, res) => {
+app.use('/', (req, res) => {
   res.status(404);
   res.render('404');
 });
