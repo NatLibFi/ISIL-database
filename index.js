@@ -55,9 +55,9 @@ app.post('/:language/process', (req, res, next) => {
       err.status = 415;
       return next(err);
     } else if (doc.length === 0) {
-      res.render('empty', { body: texts[language] });
+      res.render('empty', { layout: language + '_main' , body: texts[language] });
     } else {
-      res.render(language + '_results', { results: doc });
+      res.render(language + '_results', { layout: language + '_main' , results: doc });
     }
   });
 });
