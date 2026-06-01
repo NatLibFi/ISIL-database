@@ -42,16 +42,6 @@ app.use(bodyParser.json());
 
 // Process the query
 
-app.post('/process', (req, res) => {
-  dbQuery(req, doc => {
-      if (doc.length === 0) {
-        res.render('empty', { body: 'Ei hakutuloksia' });
-      } else {
-        res.render('fi_results', { results: doc });
-      }
-  });
-});
-
 app.post('/:language/process', (req, res, next) => {
   const language = req.params.language
   const texts = {
@@ -65,7 +55,7 @@ app.post('/:language/process', (req, res, next) => {
       err.status = 415;
       return next(err);
     } else if (doc.length === 0) {
-      res.render(language + '_empty', { body: texts.language });
+      res.render('empty', { body: texts[language] });
     } else {
       res.render(language + '_results', { results: doc });
     }
@@ -86,7 +76,7 @@ app.get('/accessibility/:language/', (req, res) => {
 
 // REST api
 
-app.get('/api/query?', (req, res) => {
+app.get('/api/query', (req, res) => {
   apiQuery(req, res);
 });
 
