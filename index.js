@@ -7,7 +7,6 @@ process.chdir(__dirname);
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const _ = require('underscore');
 const dbQuery = require('./src/server/db-query');
 const apiQuery = require('./src/server/api-query');
 const favicon = require('serve-favicon');
