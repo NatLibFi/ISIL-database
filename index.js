@@ -75,8 +75,8 @@ app.get('/accessibility/:language/', (req, res) => {
 
 // REST api
 
-app.get('/api/query', (req, res) => {
-  apiQuery(req, res);
+app.get('/api/query', (req, res, next) => {
+  apiQuery(req, res, next);
 });
 
 // Api page
@@ -97,12 +97,15 @@ app.use('/', (req, res) => {
 });
 
 app.use( (err, req, res, next) => {
-  res.status(415);
-  res.render('415');
+  if (err.status === 415) {
+    res.status(415);
+    res.render('415');
+  }
+  next(err);
 });
 
 // 500 error handler (middleware)
-app.use( (err, req, res) => {
+app.use( (err, req, res, next) => {
   res.status(500);
   res.render('500');
 });
